@@ -11,7 +11,6 @@ req = Request('http://www.cmegroup.com/trading/products/#sortField=oi&sortAsc=fa
 webpage = urlopen(req).read()
 '''
 def valorar(lista):
-    
     nombre = ""
     for i in lista:
         letra = i.get()
@@ -22,17 +21,16 @@ def valorar(lista):
         print("Perdiste")
 
 def limitador(*entry_text):
+    
     print(entry_text)
     pos = int(entry_text[1][6:])
     if(lista[pos].get()):
         if pos < len(lista)-1:
             lista[pos+1].focus_set()
-        if len(entry_text[0].get()) > 0:
-            entry_text[0].set(entry_text[0].get()[:1].upper())
     else:
         lista[pos-1].focus_set()
-        if len(entry_text[0].get()) > 0:
-            entry_text[0].set(entry_text[0].get()[:1].upper())
+    if len(entry_text[0].get()) > 0:
+        entry_text[0].set(entry_text[0].get()[:1].upper())
 
 def sortear_bandera():
     url = 'https://flagcdn.com/256x192/{}.png'
