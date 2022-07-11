@@ -6,10 +6,7 @@ import json
 import random
 from functools import partial
 
-'''
-req = Request('http://www.cmegroup.com/trading/products/#sortField=oi&sortAsc=false&venues=3&page=1&cleared=1&group=1', headers={'User-Agent': 'Mozilla/5.0'})
-webpage = urlopen(req).read()
-'''
+
 def valorar(lista):
     nombre = ""
     for i in lista:
@@ -85,11 +82,11 @@ lista = []
 for i in range(len(nombre_pais)):
     entry_text = tk.StringVar()  
     i_nombre = tk.Entry(f2, width=2, textvariable = entry_text,  justify=tk.CENTER)
-    entry_text.trace("w", partial(limitador,   entry_text))
+    entry_text.trace("w", partial(limitador,entry_text))
     lista.append(i_nombre)
     i_nombre.grid(column=i,row=0)
     
-b_guardar = tk.Button(f3, text="ok", command=partial(valorar, lista))
+b_guardar = tk.Button(f3, text="listo", command=partial(valorar, lista))
 
 b_guardar.grid(column=0, row=0)
 lista[0].focus_set()
