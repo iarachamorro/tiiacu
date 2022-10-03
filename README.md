@@ -13,3 +13,4 @@ sudo apt-get install json-glib-tools
 random
 sudo apt update
 sudo snap install random-learning
+
