@@ -2,6 +2,7 @@
 juego países
 
 tkinter
+
 sudo apt install python3-tk
 pillow
 podemos usar pip install pillow pero si ese comando no funciona hay que probar con sudo apt install python-pip
