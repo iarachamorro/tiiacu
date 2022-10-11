@@ -1,5 +1,5 @@
-# tiiacu
-juego países
+# Grupo de trabajo "tiiacu"
+Juego países
 # banderasprueba.py
 tkinter
 sudo apt install python3-tk
@@ -13,4 +13,3 @@ sudo apt-get install json-glib-tools
 random
 sudo apt update
 sudo snap install random-learning
-
