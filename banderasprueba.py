@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-from urllib.request import Request, urlopen
+from urllib.request import Request, urlopen, urlretrieve
 import requests
 import json
 import random
@@ -41,6 +41,10 @@ def sortear_bandera():
         if a == num:
             nombre_pais = flags[i].replace(" ", "")
             url_final = url.format(i)
+            response = requests.get(url_final)
+            file = open("fotoJuego.png", "wb")
+            file.write(response.content)
+            file.close()
             print(nombre_pais)
             print(url_final)
     req = Request(url_final, headers={'User-Agent': 'Mozilla/5.0'})
