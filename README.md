@@ -11,7 +11,7 @@ Para que funcione correctamente deben instalar estos modulos:
 
 # banderasprueba.py
 tkinter
-# sudo apt install python3-tk*
+### sudo apt install python3-tk*
 
 pillow
 
