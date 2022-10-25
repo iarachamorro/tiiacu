@@ -1,6 +1,6 @@
 # Grupo de trabajo "tiiacu"
 
-<em> # Game of flags </em>
+<p> # Game of flags </p>
 
 *Para hacer nuestro juego utilizamos una API que contiene las banderas del mundo, y lo que hicimos fue que las tire al azar y consiste en adivinar de qué país o estado es. La idea es que en un futuro la dificultad aumente a medida bque van avanzando, para esto debemos separar los países en continentes.*
 
