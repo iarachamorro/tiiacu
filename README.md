@@ -14,9 +14,11 @@ tkinter
 ### sudo apt install python3-tk*
 
 pillow
+  
 ´´´
 pip install pillow 
 ´´´
+  
 sudo apt install python-pip
 ´´´
 Request
