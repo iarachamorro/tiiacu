@@ -1,37 +1,46 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-from urllib.request import urlopen
+import requests
 from io import BytesIO
 
-root = tk.Tk()
-URL = "https://flagcdn.com/256x192/{}.jpg"
-URL2 = "https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg"
+class Juego:
+    
+    def __init__(self):
+        self.root = tk.Tk()
+        self.URL = 'http://flagcdn.com/256x192/ar.png'
+        self.URL2 = 'http://flagcdn.com/256x192/es.png'
+        self.nombre1 = "ar"
+        self.nombre2 = "uy"
+        #file = self.obtenerFoto(self.URL, self.nombre1)
+        ima = Image.open(f"{self.nombre1}.png")
+        img = ImageTk.PhotoImage(ima)
+        self.panel = tk.Label(self.root, image=img)
+        self.panel.pack(side="bottom", fill="both", expand="yes")
+        self.b1 = tk.Button(self.root, text="cambiar", command=self.callback)
+        b2 = tk.Button(self.root, text="cerrar", command=self.cambiar)
+        b2.pack()
+        self.b1.pack()
+        self.root.mainloop()
+    
+    def obtenerFoto(self, url, nombre):
+        response = requests.get(url)
+        file = open(f"{nombre}.png", "wb")
+        file.write(response.content)
+        file.close()
+
+       
+  
+    def callback(self):
+        self.panel.destroy()
+        #self.obtenerFoto(self.URL2, self.nombre2)
+        ima = Image.open(f"{self.nombre2}.png")
+        img = ImageTk.PhotoImage(ima)
+        self.panel = tk.Label(self.root, image=img)
+        self.panel.pack(side="bottom", fill="both", expand="yes")
 
 
-u = urlopen(URL)
-raw_data = u.read()
-u.close()
-im = Image.open(BytesIO(raw_data))
-img = ImageTk.PhotoImage(im)
-
-panel = tk.Label(root, image=img)
-panel.pack(side="bottom", fill="both", expand="yes")
-
-def callback():
-    u2 = urlopen(URL2)
-    raw_data2 = u2.read()
-    u2.close()
-    im2 = Image.open(BytesIO(raw_data2))
-    img2 = ImageTk.PhotoImage(im2)
-    panel.configure(image=img2)
-    panel.image = img2
-
-def cambiar():
-    b1.config(text="hola")
+    def cambiar(self):
+        self.b1.config(text="listo")
 
 
-b1 = tk.Button(root, text="cambiar", command=callback)
-b2 = tk.Button(root, text="cambiar boton", command=cambiar)
-b2.pack()
-b1.pack()
-root.mainloop()
+j = Juego()
