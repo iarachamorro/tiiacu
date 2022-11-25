@@ -6,92 +6,94 @@ import json
 import random
 from functools import partial
 
+class Juego:
 
-def valorar(lista):
-    nombre = ""
-    for i in lista:
-        letra = i.get()
-        nombre += letra
-    if nombre.upper() == nombre_pais.upper():
-        print("Ganaste, sumaste un punto")
-    else:
-        print("Perdiste")
+    def __init__(self):
+        self.root = tk.Tk()
+        self.palabras = 0
+        self.root.title("Banderas")
+        self.f1 = tk.Frame(self.root)
+        self.f1.grid(column=0, row=0)
+        self.f2 = tk.Frame(self.root)
+        self.f2.grid(column=0, row=1)
+        self.f3 = tk.Frame(self.root)
+        self.f3.grid(column=0, row=2)
+        self.label = tk.Label(self.f1)
+        self.label.grid(column=0, row=0)
+        self.lista = []
+        self.sortear_bandera()
+        self.ponerImagen()           
+        b_guardar = tk.Button(self.f3, text="listo", command=partial(self.valorar))
+        b_guardar.grid(column=0, row=0)
+        self.lista[0].focus_set()
+        
+        self.root.mainloop()
 
-def limitador(*entry_text):
-    
-    print(entry_text)
-    pos = int(entry_text[1][6:])
-    if(lista[pos].get()):
-        if pos < len(lista)-1:
-            lista[pos+1].focus_set()
-    else:
-        lista[pos-1].focus_set()
-    if len(entry_text[0].get()) > 0:
-        entry_text[0].set(entry_text[0].get()[:1].upper())
+    def valorar(self):
+        nombre = ""
+        for i in self.lista:
+            letra = i.get()
+            nombre += letra
+        if nombre.upper() == self.nombre_pais.upper():
+            print("Ganaste, sumaste un punto")
+        else:
+            print("Perdiste")
+        self.f2.destroy()
+        self.f2 = tk.Frame(self.root)
+        self.f2.grid(column=0, row=1)
+        self.palabras += len(self.nombre_pais)
+        print(self.palabras)
+        self.sortear_bandera()
+        self.ponerImagen()
+        
 
-def sortear_bandera():
-    url = 'https://flagcdn.com/256x192/{}.png'
-    resp = requests.get("https://flagcdn.com/es/codes.json", headers={'User-Agent': 'Mozilla/5.0'})
-    flags = json.loads(resp.text)
-    a = 0
-    num = random.randint(0,len(flags))
+    def limitador(self, *entry_text):
+        print(entry_text)
+        pos = int(entry_text[1][6:]) - self.palabras
+        if(self.lista[pos].get()):
+            if pos < len(self.lista)-1:
+                self.lista[pos+1].focus_set()
+        else:
+            self.lista[pos-1].focus_set()
+        if len(entry_text[0].get()) > 0:
+            entry_text[0].set(entry_text[0].get()[:1].upper())
 
-    for i in flags:
-        a += 1
-        if a == num:
-            nombre_pais = flags[i].replace(" ", "")
-            url_final = url.format(i)
-            response = requests.get(url_final)
-            file = open("fotoJuego.png", "wb")                     
-            file.write(response.content)
-            file.close()
-            print(nombre_pais)
-            print(url_final)
-    req = Request(url_final, headers={'User-Agent': 'Mozilla/5.0'})
-    raw_data = urlopen(req).read()
-    print(len(nombre_pais)*"_ ")
-    photo = ImageTk.PhotoImage(data=raw_data)
-    return (nombre_pais, url_final, photo)
+    def sortear_bandera(self):
+        url = 'https://flagcdn.com/256x192/{}.png'
+        resp = requests.get("https://flagcdn.com/es/codes.json", headers={'User-Agent': 'Mozilla/5.0'})
+        flags = json.loads(resp.text)
+        a = 0
+        num = random.randint(0,len(flags))
+        for i in flags:
+            a += 1
+            if a == num:
+                self.nombre_pais = flags[i].replace(" ", "")
+                url_final = url.format(i)
+                response = requests.get(url_final)
+                file = open("fotoJuego.png", "wb")                     
+                file.write(response.content)
+                file.close()
+                print(self.nombre_pais)
+                #print(url_final)
+        req = Request(url_final, headers={'User-Agent': 'Mozilla/5.0'})
+        raw_data = urlopen(req).read()
+        #print(len(nombre_pais)*"_ ")
+        self.photo = ImageTk.PhotoImage(data=raw_data, master=self.label)
+        
 
 
-def construir_pantalla():
-    root = tk.Tk()
-    root.title("Banderas")
-    f1 = tk.Frame(root)
-    f1.grid(column=0, row=0)
-    f2 = tk.Frame(root)
-    f2.grid(column=0, row=1)
-    f3 = tk.Frame(root)
-    f3.grid(column=0, row=2)
-    label = tk.Label(f1)
-    label.grid(column=0, row=0)
-    return (f1,f2,f3, label, root)
 
-partes = construir_pantalla()
-f1 = partes[0]
-f2 = partes[1]
-f3 = partes[2]
-label = partes[3]
-root = partes[4]
+    def ponerImagen(self):
+        self.lista = []
+        for i in range(len(self.nombre_pais)):
+            entry_text = tk.StringVar()  
+            i_nombre = tk.Entry(self.f2, width=2, textvariable = entry_text,  justify=tk.CENTER)
+            entry_text.trace("w", partial(self.limitador,entry_text))
+            self.lista.append(i_nombre)
+            i_nombre.grid(column=i,row=0)
+        self.label.image = self.photo
+        self.label.config(image = self.photo)
 
-datos_bandera = sortear_bandera()
-nombre_pais = datos_bandera[0]
-url_final = datos_bandera[1]
-photo = datos_bandera[2]
-label.image = photo
-label.config(image = photo)
 
-lista = []
-
-for i in range(len(nombre_pais)):
-    entry_text = tk.StringVar()  
-    i_nombre = tk.Entry(f2, width=2, textvariable = entry_text,  justify=tk.CENTER)
-    entry_text.trace("w", partial(limitador,entry_text))
-    lista.append(i_nombre)
-    i_nombre.grid(column=i,row=0)
-    
-b_guardar = tk.Button(f3, text="listo", command=partial(valorar, lista))
-
-b_guardar.grid(column=0, row=0)
-lista[0].focus_set()
-root.mainloop()
+if __name__ == "__main__":
+    j = Juego()

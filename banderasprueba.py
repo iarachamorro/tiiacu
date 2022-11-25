@@ -42,7 +42,7 @@ class banderas:
         else:
             print("Perdiste")
 
-<<<<<<< HEAD
+
     def limitador(*entry_text):
         
         print(entry_text)
@@ -54,24 +54,23 @@ class banderas:
             lista[pos-1].focus_set()
         if len(entry_text[0].get()) > 0:
             entry_text[0].set(entry_text[0].get()[:1].upper())
-=======
-    for i in flags:
-        a += 1
-        if a == num:
-            nombre_pais = flags[i].replace(" ", "")
-            url_final = url.format(i)
-            response = requests.get(url_final)
-            file = open("fotoJuego.png", "wb")                     
-            file.write(response.content)
-            file.close()
-            print(nombre_pais)
-            print(url_final)
-    req = Request(url_final, headers={'User-Agent': 'Mozilla/5.0'})
-    raw_data = urlopen(req).read()
-    print(len(nombre_pais)*"_ ")
-    photo = ImageTk.PhotoImage(data=raw_data)
-    return (nombre_pais, url_final, photo)
->>>>>>> 100ec89d85304ac4192d53dbeb462b859a9990fb
+
+        for i in flags:
+            a += 1
+            if a == num:
+                nombre_pais = flags[i].replace(" ", "")
+                url_final = url.format(i)
+                response = requests.get(url_final)
+                file = open("fotoJuego.png", "wb")                     
+                file.write(response.content)
+                file.close()
+                print(nombre_pais)
+                print(url_final)
+        req = Request(url_final, headers={'User-Agent': 'Mozilla/5.0'})
+        raw_data = urlopen(req).read()
+        print(len(nombre_pais)*"_ ")
+        photo = ImageTk.PhotoImage(data=raw_data)
+        return (nombre_pais, url_final, photo)
 
     def sortear_bandera():
         url = 'https://flagcdn.com/256x192/{}.png'
@@ -100,7 +99,7 @@ class banderas:
         return (nombre_pais, img , photo)
 
 
-    def construir_pantalla():
+    def construir_pantalla(self):
         ventana = tk.Tk()
         ventana.title("Banderas")
         self.f1 = tk.Frame(ventana)
@@ -114,10 +113,10 @@ class banderas:
         return (f1,f2,f3, label, ventana)
 
 
-    for i in range(len(nombre_pais)):
-        entry_text = tk.StringVar()  
-        i_nombre = tk.Entry(f2, width=2, textvariable = entry_text,  justify=tk.CENTER)
-        entry_text.trace("w", partial(limitador,entry_text))
-        lista.append(i_nombre)
-        i_nombre.grid(column=i,row=0)
+        for i in range(len(nombre_pais)):
+            entry_text = tk.StringVar()  
+            i_nombre = tk.Entry(f2, width=2, textvariable = entry_text,  justify=tk.CENTER)
+            entry_text.trace("w", partial(limitador,entry_text))
+            lista.append(i_nombre)
+            i_nombre.grid(column=i,row=0)
     
