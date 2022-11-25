@@ -7,8 +7,8 @@ class Juego:
     
     def __init__(self):
         self.root = tk.Tk()
-        self.URL = 'http://flagcdn.com/256x192/ar.png'
-        self.URL2 = 'http://flagcdn.com/256x192/es.png'
+        self.URL = 'home/Documentos/tiiacu/banderas/ar.png'
+        self.URL2 = 'home/Documentos/tiiacu/banderas/es.png'
         self.nombre1 = "ar"
         self.nombre2 = "uy"
         #file = self.obtenerFoto(self.URL, self.nombre1)
@@ -17,7 +17,7 @@ class Juego:
         self.panel = tk.Label(self.root, image=img)
         self.panel.pack(side="bottom", fill="both", expand="yes")
         self.b1 = tk.Button(self.root, text="cambiar", command=self.callback)
-        b2 = tk.Button(self.root, text="cerrar", command=self.cambiar)
+        b2 = tk.Button(self.root, text="cerrar", command=self.root.destroy)
         b2.pack()
         self.b1.pack()
         self.root.mainloop()
