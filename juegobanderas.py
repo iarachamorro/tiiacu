@@ -10,14 +10,17 @@ class Juego:
 
     def __init__(self):
         self.root = tk.Tk()
+        self.root.geometry('500x500')
+        self.root.resizable(0, 0)
         self.palabras = 0
         self.root.title("Banderas")
         self.f1 = tk.Frame(self.root)
-        self.f1.grid(column=0, row=0)
+        self.f1.place(x=120, y=145)
         self.f2 = tk.Frame(self.root)
-        self.f2.grid(column=0, row=1)
+        self.f2.place(x=200, y=280)
+        self.f2.place(x=140, y=380)
         self.f3 = tk.Frame(self.root)
-        self.f3.grid(column=0, row=2)
+        self.f3.place(x=160, y=420)
         self.label = tk.Label(self.f1)
         self.label.grid(column=0, row=0)
         self.lista = []
@@ -46,7 +49,6 @@ class Juego:
         self.sortear_bandera()
         self.ponerImagen()
         
-
     def limitador(self, *entry_text):
         print(entry_text)
         pos = int(entry_text[1][6:]) - self.palabras
